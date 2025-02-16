@@ -1,11 +1,11 @@
-addEventListener("fetch", event => {
-  event.respondWith(handleRequest(event.request));
-});
+export default {
+  async fetch(request) {
+    let url = new URL(request.url);
+    url.hostname = "114.250.83.203";
+    url.port = "7777";
+    url.pathname = "/" + url.pathname;
 
-async function handleRequest(request) {
-  let url = new URL(request.url);
-  let newUrl = "http://114.250.83.203:7777" + url.pathname;
-  return fetch(newUrl, {
-    headers: request.headers
-  });
-}
+    let modifiedRequest = new Request(url, request);
+    return fetch(modifiedRequest);
+  }
+};
